@@ -12,6 +12,10 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->json(['name' => 'meo']);
+        $id = $this->getUser()->getId();
+        $name = $this->getUser()->getName();
+        $email = $this->getUser()->getEmail();
+        
+        return $this->json(['user' => ['id' => $id, 'name' => $name, 'email' => $email]]);
     }
 }

@@ -1,37 +1,41 @@
-import React from 'react'
-// import { useHistory } from 'react-router-dom'
-// import { useDispatch, useSelector } from 'react-redux'
-
-// import {login, logout} from './Store/Actions'
+import React, { useEffect } from 'react'
 import { Routes } from './Routes/Routes'
 import './App.css'
-import { Register } from './Forms/Register'
-import { Login } from './Forms/Login'
+import { Loader } from 'Loader/Loader'
+import axios from './axios'
+import { useDispatch } from 'react-redux'
+import { loading, loaded } from 'Store/Actions'
 
 const App = () => {
-  
-  // const dispatch = useDispatch()
-  // const history = useHistory()
-  // const auth = useSelector(state => state.authReducer)
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token') && localStorage.getItem('token')}`
+    }
+  }
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
+
+  useEffect(() => {
+    if(token) {
+      dispatch(loading())
+      axios.get('/', config)
+      .then(response => {
+        setTimeout(() => {
+          dispatch(loaded(response.data))
+        }, 500)
+      })
+    }
+  }, [config, dispatch, token])
 
   return (
-      <div className="App">
+    <div className="App">
         <header className="App-header">
-            {/* {auth ? 
-              <button onClick={() => dispatch(logout())}>logout</button>
-              : 
-              <button onClick={() => dispatch(login(history.push('/game')))}>login</button>
-            } */}
-
+        <Loader />
           <Routes />
-          <Register />
-
-          LOGIN
-          <hr />
-          <Login />
         </header>
       </div>
   );
 }
 
 export default App;
+

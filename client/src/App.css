@@ -1,11 +1,11 @@
 .App-header {
-  background-color: #0C1C2C;
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
+  background: linear-gradient(rgb(76, 19, 235), rgb(15, 9, 90));
+  background: linear-gradient(rgb(76, 19, 235), rgb(3, 7, 22));
+  height: 100vh;
   color: white;
-  padding: 5vh;
 }
 
-.App-link {
-  color: #61dafb;
+.bg {
+  background: white;
+  color: black;
 }
